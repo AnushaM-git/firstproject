@@ -1,0 +1,6 @@
+import boto3
+sns=boto3.client('sns')
+def lambda_handler(event, context):
+    topic_arn='ARN for SNS topic'
+    message= 'Messages that would like to display in email'
+    sns.publish(TopicArn=topic_arn,Message=message)
