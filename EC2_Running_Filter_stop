@@ -1,0 +1,27 @@
+#  Displayay instances in stopped state
+import boto3
+ec2= boto3.client('ec2')
+stopped_instance= ec2.decribe_instances(
+		Filters=[
+			{
+				'Name': 'state',
+				'Values': [
+					'stopped'
+				]
+			}
+)
+
+# Get instances which are in "running state" and stop them
+
+import boto3
+ec2 = boto3.resource('ec2')
+
+ec2_filter = [
+				{
+					'Name': 'state',
+					'Values': [
+						'running'
+					]
+				}
+				]
+stopped_instances = ec2.instances.filter(Filters=ec2_filter).stop()
