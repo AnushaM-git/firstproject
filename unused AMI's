@@ -1,0 +1,39 @@
+import boto3
+ec2 = boto3.client('ec2')
+instances = ec2.describe_instances()
+used_amis=[]
+for reservations in instance['Reservations']:
+	for instances in reservations['Instances']
+	    used_amis.append(instances['ImageID']) # Displays all AMIS'S(used+un-used)
+		
+
+#Remove Duplicate AMI'S 
+ def remove_duplicate_amis(amis):
+	unique_amis=[]
+	for ami in amis:
+		if ami not in unique_amis:
+			unique_amis.append(ami)
+	return unique_amis
+unique_amis = remove_duplicate_amis(used_amis)
+
+#Get custom AMI'S from the account
+custom_images = ec2.describe_images(
+	Filters=[
+	         {'Name': 'state',
+              'Values': [
+                'available']
+                },
+	Owners=['self']
+)
+custom_imageid=[]
+for images in custom_images['Images']:
+	custom_imageid.append(images['ImageId'])
+
+# Delete un-used AMI'S 
+
+for custom_images in custom_imageid:
+	if custom_imageid not in used_amis:
+		ec2.deregister_image(ImageId=images['ImageID'])
+
+	
+ 
